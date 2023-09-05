@@ -37,6 +37,7 @@ body {
   height: 40%;
   display: flex;
   padding-left: 170px;
+  position: relative;
 }
 
 .actions-wrapper {
@@ -68,4 +69,23 @@ button {
 }
 .char {
   filter: saturate(1);
+  transition: all 1s;
+}
+.bulb {
+  transition: all 1s;
+  width: 350px;
+}
+.char-damage {
+  font-size: 80px;
+  color: red;
+  position: absolute;
+  right: 200px;
+  visibility: hidden;
+}
+.bul-damage {
+  font-size: 80px;
+  color: red;
+  position: absolute;
+  left: 600px;
+  visibility: hidden;
 }
