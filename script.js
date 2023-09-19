@@ -9,6 +9,7 @@ let currentPlayer = "bulb";
 let announce = document.querySelector(".announcer");
 let avatar = document.querySelector(".icon-avatar");
 let ultimateDamage = document.querySelector(".ultimate-damage");
+let ultimateUse = document.querySelector(".ultimate-button");
 
 let charHealth = 100;
 let bulbHealth = 100;
@@ -19,7 +20,7 @@ let charizardDamage = 0;
 
 //Battle function
 const battle = (currentPlayer) => {
-  const randomNumber = 10 + Math.floor(Math.random() * 20);
+  const randomNumber = 7 + Math.floor(Math.random() * 13);
 
   if (currentPlayer === "char") {
     bD.innerHTML = "-" + randomNumber;
@@ -132,6 +133,45 @@ const damageAnimation = (character, current) => {
   }, 500);
 };
 
+//Ultimate function
+const ultimateFunction = (
+  pokemonHealth,
+  damage,
+  pokemonName,
+  image,
+  hit,
+  nickName
+) => {
+  const ultNumber = 5 + Math.floor(Math.random() * 40);
+  pokemonHealth = pokemonHealth - ultNumber;
+  // health.innerHTML = pokemonHealth;
+  ultimateDamage.innerHTML = "0";
+
+  damage.innerHTML = "-" + ultNumber;
+  damage.style.visibility = "visible";
+
+  setTimeout(() => {
+    damage.style.visibility = "hidden";
+  }, 700);
+
+  // setTimeout(() => {
+  //   health.innerHTML = pokemonHealth;
+  //   health.innerHTML = Number(health.innerHTML) - ultNumber;
+  //   if (Number(health.innerHTML) <= 0) {
+  //     winner();
+  //     health.innerHTML = "0";
+  //   }
+  // }, 1100);
+
+  setTimeout(() => {
+    name.innerHTML = pokemonName;
+    currentPlayer = nickName;
+    avatar.src = image;
+    ultimateDamage.innerHTML = hit;
+    health.innerHTML = pokemonHealth;
+  }, 1000);
+};
+
 fight.addEventListener("click", () => {
   if (currentPlayer === "bulb") {
     if (charHealth > 0 && bulbHealth > 0) {
@@ -148,7 +188,40 @@ fight.addEventListener("click", () => {
   }
 });
 
+//Ultimate functions
+ultimateUse.addEventListener("click", () => {
+  if (bulbasaurDamage >= 40 && currentPlayer === "bulb") {
+    ultimateFunction(
+      charHealth,
+      cD,
+      "Charizard",
+      "./images/icon c.png",
+      charizardDamage,
+      "char"
+    );
+    damageAnimation(chari, "dragon");
+    bulbasaurDamage = 0;
+  }
+  if (charizardDamage >= 40 && currentPlayer === "char") {
+    ultimateFunction(
+      bulbHealth,
+      bD,
+      "Bulbasaur",
+      "./images/icon b.png",
+      bulbasaurDamage,
+      "buld"
+    );
+    damageAnimation(bulbasaur, "broasca");
+    charizardDamage = 0;
+  }
+  console.log("BULBHEALTH>>>>>", bulbHealth);
+  console.log("CHARIZARDJHEALTH>>>>>>", charHealth);
+});
+
 //1) Sa creem o functie care sa modifice numele si HP curent al pokemonilor.
 //2) Sa creem o functie care sa dea damage pokemonilor.
 //3) Functie Ultimata
 //4) Conditie de win/lose
+
+//Tema sapt 2 scoala
+// Fa ultimata sa dea damage
